@@ -13,8 +13,8 @@
              for (int i = 0; i < args.length; i++) {
                 String s = args[i];
                 if (isPalindrome(s))
-                System.out.println("Ïàëèíäðîì"); 
-                else System.out.println(" Íå Ïàëèíäðîì");
+                System.out.println("ÐŸÐ°Ð»Ð¸Ð½Ð´Ñ€Ð¾Ð¼"); 
+                else System.out.println("ÐÐµ ÐŸÐ°Ð»Ð¸Ð½Ð´Ñ€Ð¾Ð¼");
          
              }
          }
