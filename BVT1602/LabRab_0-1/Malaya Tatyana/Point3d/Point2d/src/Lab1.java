@@ -5,11 +5,11 @@ import java.util.Scanner;
 public class Lab1{
 	public static void main(String[] args){
         Scanner in = new Scanner(System.in);
-        System.out.print("Ââåäèòå êîîðäèíàòû ïåðâîé òî÷êè  (x y z): ");
+        System.out.print("Введите координаты первой точки (x y z): ");
         Point3D firstPoint = new Point3D(in.nextDouble(),in.nextDouble(),in.nextDouble());
-        System.out.print("Ââåäèòå êîîðäèíàòû âòîðîé òî÷êè (x y z): ");
+        System.out.print("Введите координаты второй точки (x y z): ");
         Point3D secondPoint = new Point3D(in.nextDouble(),in.nextDouble(),in.nextDouble());
-        System.out.print("Ââåäèòå êîîðäèíàòû òðåòüåé òî÷êè (x y z): ");
+        System.out.print("Введите координаты третьей точки (x y z): ");
         Point3D thirdPoint = new Point3D(in.nextDouble(),in.nextDouble(),in.nextDouble());
         //System.out.println(firstPoint.distanceTo(secondPoint));
         double area = computeArea(firstPoint,secondPoint,thirdPoint);
@@ -22,7 +22,7 @@ public class Lab1{
 		if (firstPoint.equality(secondPoint)||secondPoint.equality(thirdPoint)||thirdPoint.equality(firstPoint))
 		{
 
-            System.out.println("Íåêîòîðûå òî÷êè ðàâíû.");
+            System.out.println("Некоторые точки равны.");
             return 0;
 		}
 		
