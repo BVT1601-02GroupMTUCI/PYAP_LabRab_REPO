@@ -1,6 +1,6 @@
 public class Primes{
 	public static void main(String[] args){
-		System.out.print("Простые числа: ");
+		System.out.print("РџСЂРѕСЃС‚С‹Рµ С‡РёСЃР»Р°: ");
 	for (int n=2;n<=100;n++) {
 		 if (isPrime(n))
 			 System.out.print(n+",");
