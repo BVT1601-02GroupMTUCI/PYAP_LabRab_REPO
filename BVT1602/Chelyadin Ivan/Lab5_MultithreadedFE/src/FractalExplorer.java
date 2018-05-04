@@ -109,8 +109,8 @@ public class FractalExplorer {
        @Override
        public void mouseClicked(MouseEvent e) {
            if (rowsRemaining != 0) return;
-           double xCoord = FractalGenerator.getCoord(range.x,range.width,displaySize,e.getX());
-           double yCoord = FractalGenerator.getCoord(range.y,range.height,displaySize,e.getY());
+           double xCoord = FractalGenerator.getCoord(range.x,range.x+range.width,displaySize,e.getX());
+           double yCoord = FractalGenerator.getCoord(range.y,range.y+range.height,displaySize,e.getY());
            fGen.recenterAndZoomRange(range,xCoord,yCoord,0.5);
            drawFractal();
        }

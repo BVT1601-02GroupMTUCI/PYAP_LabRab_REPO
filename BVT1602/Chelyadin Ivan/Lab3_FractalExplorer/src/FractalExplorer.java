@@ -39,9 +39,9 @@ public class FractalExplorer {
                 double xCoord = FractalGenerator.getCoord(range.x,range.x+range.width,displaySize,x);
                 double yCoord = FractalGenerator.getCoord(range.y,range.y+range.height,displaySize,y);
                 int numIters = mandelbrot.numIterations(xCoord,yCoord);
-                if (numIters == -1){
+                if (numIters == -1)
                     image.drawPixel(x,y,0);
-                }
+
                 else {
                     float hue = 0.5f + (float) numIters / 200f;
                     int rgbColor = Color.HSBtoRGB(hue, 1f, 1f);
@@ -63,8 +63,8 @@ public class FractalExplorer {
    private class MouseHandler extends MouseAdapter {
        @Override
        public void mouseClicked(MouseEvent e) {
-           double xCoord = FractalGenerator.getCoord(range.x,range.width,displaySize,e.getX());
-           double yCoord = FractalGenerator.getCoord(range.y,range.height,displaySize,e.getY());
+           double xCoord = FractalGenerator.getCoord(range.x,range.x+range.width,displaySize,e.getX());
+           double yCoord = FractalGenerator.getCoord(range.y,range.y+range.height,displaySize,e.getY());
            mandelbrot.recenterAndZoomRange(range,xCoord,yCoord,0.5);
            drawFractal();
        }

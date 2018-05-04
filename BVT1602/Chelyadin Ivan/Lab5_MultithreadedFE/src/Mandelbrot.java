@@ -1,7 +1,7 @@
 import java.awt.geom.Rectangle2D;
 
 public class Mandelbrot extends FractalGenerator {
-    private static int MAX_ITERATION = 2000;
+    private static final int MAX_ITERATION = 2000;
 
     @Override
     public void getInitialRange(Rectangle2D.Double range) {
