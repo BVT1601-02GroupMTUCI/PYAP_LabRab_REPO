@@ -11,14 +11,14 @@ class JImageDisplay extends JComponent {
     }
 
     @Override
-    public void paintComponents(Graphics g) {
+    public void paintComponent(Graphics g) {
         super.paintComponents(g);
         g.drawImage(image, 0, 0, image.getWidth(), image.getHeight(), null);
     }
 
     public void clearImage() {
-        for (int j = 0; j < image.getHeight(); j++) {
-            for (int i = 0; i < image.getWidth(); i++) {
+        for (int i = 0; i < image.getWidth(); i++) {
+            for (int j = 0; j < image.getHeight(); j++) {
                 image.setRGB(i, j, 0);
             }
         }

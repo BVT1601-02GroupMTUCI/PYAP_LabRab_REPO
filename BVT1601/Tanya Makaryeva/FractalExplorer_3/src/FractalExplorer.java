@@ -3,10 +3,8 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 
 public class FractalExplorer extends JFrame {
-    public static final int MAX_ITERATIONS = 2000;
     private int displaySize;            // размер отображаемой области
     private JImageDisplay imageDisplay; // ссылка на отображения
     private FractalGenerator fractal;
@@ -24,22 +22,21 @@ public class FractalExplorer extends JFrame {
      * */
     private FractalExplorer(int size) {
         displaySize = size;
-        fractal = new Mandelbrot();
-        range = new Rectangle2D.Double();
-        fractal.getInitialRange(range);
         imageDisplay = new JImageDisplay(displaySize, displaySize);
+        fractal = new Mandelbrot();
+        range = new Rectangle2D.Double(0,0,0,0);
+        fractal.getInitialRange(range);
+
     }
 
     private void createAndShowGUI() {
         JFrame frame = new JFrame("Fractal Explorer");
-        frame.setLayout(new BorderLayout());
-        // располагаем отображение в центре
-        frame.add(imageDisplay, BorderLayout.CENTER);
         // создаем кнопку для очистки области
         JButton resetButton = new JButton("Reset");
         // подключаем слушатель к кнопке
         resetButton.addActionListener(e -> {
             fractal.getInitialRange(range);
+            imageDisplay.clearImage();
             drawFractal();
         });
         // располагаем кнопку снизу экрана
@@ -47,6 +44,9 @@ public class FractalExplorer extends JFrame {
 
         MouseHandler click = new MouseHandler();
         imageDisplay.addMouseListener(click);
+
+        // располагаем отображение в центре
+        frame.add(imageDisplay, BorderLayout.CENTER);
 
         // закрытие приложение при нажатии на крестик в правом верхнем углу экрана
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -76,26 +76,27 @@ public class FractalExplorer extends JFrame {
                 /*
                  * текущие координаты
                  * */
-                double xCoord = fractal.getCoord(range.x, range.x + range.width, displaySize, x);
-                double yCoord = fractal.getCoord(range.y, range.y + range.height, displaySize, y);
+                double xCoord = FractalGenerator.getCoord(range.x, range.x + range.width, displaySize, x);
+                double yCoord = FractalGenerator.getCoord(range.y, range.y + range.height, displaySize, y);
 
                 /*
                  * вычисляем кол-во итераций для соответствующих координат в области отображения фрактала
                  * */
                 int iteration = fractal.numIterations(xCoord, yCoord);
 
+                int pxColor = 0; // цвет по умолчанию - чёрный
                 /*
                  * если число итераций -1, то окрашиваем в такой пиксель в черный
                  * */
                 if (iteration == -1) {
-                    imageDisplay.drawPixel(x, y, 0);
+                    imageDisplay.drawPixel(x, y, pxColor);
                 } else {
                     // иначе выбираем оттенок, основанный на кол-ве итераций
                     float hue = 0.7f + (float) iteration / 200f;
-                    int rgbColor = Color.HSBtoRGB(hue, 1f, 1f);
+                    pxColor = Color.HSBtoRGB(hue, 1f, 1f);
 
                     /** обновление дисплея новым цветом для каждого пикселя */
-                    imageDisplay.drawPixel(x, y, rgbColor);
+                    imageDisplay.drawPixel(x, y, pxColor);
                 }
 
             }
@@ -104,35 +105,8 @@ public class FractalExplorer extends JFrame {
         imageDisplay.repaint();
     }
 
-    class Mandelbrot extends FractalGenerator {
-        public void getInitialRange(Rectangle2D.Double range) {
-            range.x = -2;
-            range.y = -1.5;
-            range.width = range.height = 3;
-        }
-
-        public int numIterations(double x, double y) {
-            int i = 0;
-            double re = 0, im = 0;
-            /*while (i < MAX_ITERATIONS || (re * re + im + im) < 4.) {
-                i++;
-                double rez = re * re - im * im + x;
-                double imz = 2 * re * im + y;
-                re = rez;
-                im = imz;
-            }*/
-            for (double Rez = 0, Imz = 0; i < MAX_ITERATIONS && Rez * Rez + Imz * Imz < 4.0D; ++i) {
-                double RezUpdated = Rez * Rez - Imz * Imz + x;
-                double ImzUpdated = 2 * Rez * Imz + y;
-                Rez = RezUpdated;
-                Imz = ImzUpdated;
-            }
-            return i == MAX_ITERATIONS ? -1 : i;
-        }
-
-    }
-
     private class MouseHandler extends MouseAdapter {
+        private final double SCALE = 0.5;
         /**
          * Когда обработчик получает событие щелчка мыши, он отображает пиксель-
          * координаты щелчка в область фрактала, которая
@@ -140,16 +114,18 @@ public class FractalExplorer extends JFrame {
          */
         @Override
         public void mouseClicked(MouseEvent e) {
+            super.mouseClicked(e);
             /** поучаем координаты клика мышью по фракталу */
             int x = e.getX();
             int y = e.getY();
-            double xCoord = fractal.getCoord(range.x, range.x + range.width, displaySize, x);
-            double yCoord = fractal.getCoord(range.y, range.y + range.height, displaySize, y);
+            double xCoord = FractalGenerator.getCoord(range.x, range.x + range.width, displaySize, x);
+            double yCoord = FractalGenerator.getCoord(range.y, range.y + range.height, displaySize, y);
 
             /**
              * Вызвать метод recenterAndZoomRange () с координатами, клика мышью, и масштабом 0,5.
              */
-            fractal.recenterAndZoomRange(range, xCoord, yCoord, 0.5);
+            fractal.recenterAndZoomRange(range, xCoord, yCoord, SCALE);
+            imageDisplay.clearImage();
 
             /**
              * Перерисовать фрактал после изменения отображаемой области.
