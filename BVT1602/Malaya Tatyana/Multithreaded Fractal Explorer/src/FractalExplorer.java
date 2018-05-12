@@ -26,17 +26,17 @@ public class FractalExplorer {
 		fractalGen.getInitialRange(range);
 	}
 	
-	public void createAndShowGUI ()  // создание визуала и вывод его на экран
+	public void createAndShowGUI ()  // СЃРѕР·РґР°РЅРёРµ РІРёР·СѓР°Р»Р° Рё РІС‹РІРѕРґ РµРіРѕ РЅР° СЌРєСЂР°РЅ
 	{
 		JFrame frame = new JFrame("Fractal Explorer");
 		image = new JImageDisplay(displaySize,displaySize);
-		 button = new JButton("Сброс");
-		saveButton = new JButton("Сохранение");
+		 button = new JButton("РЎР±СЂРѕСЃ");
+		saveButton = new JButton("РЎРѕС…СЂР°РЅРµРЅРёРµ");
 		comboBox = new JComboBox<>();
-		JLabel label = new JLabel ("Фрактал:");
+		JLabel label = new JLabel ("Р¤СЂР°РєС‚Р°Р»:");
 		ActionListener click = new ButtonClick();
-		button.setActionCommand("Сброс");
-		saveButton.setActionCommand("Сохранить");
+		button.setActionCommand("РЎР±СЂРѕСЃ");
+		saveButton.setActionCommand("РЎРѕС…СЂР°РЅРёС‚СЊ");
 		button.addActionListener(click);
 		comboBox.addActionListener(click); 
 		saveButton.addActionListener(click);
@@ -76,7 +76,7 @@ public class FractalExplorer {
 		saveButton.setEnabled(val);
 		comboBox.setEditable(val);
 	}
-	private class ButtonClick implements ActionListener{//отвечает за выполнение действий
+	private class ButtonClick implements ActionListener{//РѕС‚РІРµС‡Р°РµС‚ Р·Р° РІС‹РїРѕР»РЅРµРЅРёРµ РґРµР№СЃС‚РІРёР№
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -86,11 +86,11 @@ public class FractalExplorer {
 				fractalGen.getInitialRange(range);
 				drawFractal();
 			}
-			else if (e.getActionCommand() == "Сброс") {
+			else if (e.getActionCommand() == "РЎР±СЂРѕСЃ") {
 				fractalGen.getInitialRange(range);
 				drawFractal();
 			}
-			else if (e.getActionCommand() == "Сохранить") {
+			else if (e.getActionCommand() == "РЎРѕС…СЂР°РЅРёС‚СЊ") {
 				JFileChooser chooser = new JFileChooser();
 				FileFilter filter = new FileNameExtensionFilter("PNG Images", "png");
 				chooser.setFileFilter(filter);
@@ -99,7 +99,7 @@ public class FractalExplorer {
 					try {
 						ImageIO.write(image.image, "png", chooser.getSelectedFile());
 					} catch (IOException e1) {
-						JOptionPane.showMessageDialog(image, e1.getMessage(), "Ошибка", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(image, e1.getMessage(), "РћС€РёР±РєР°", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 				fractalGen.getInitialRange(range);
@@ -107,7 +107,7 @@ public class FractalExplorer {
 			}
 		}
 	}
-	private class Zoom extends MouseAdapter{     //класс считывает действие мыши(клик) и пересчитывает область для отрисовки фрактала
+	private class Zoom extends MouseAdapter{     //РєР»Р°СЃСЃ СЃС‡РёС‚С‹РІР°РµС‚ РґРµР№СЃС‚РІРёРµ РјС‹С€Рё(РєР»РёРє) Рё РїРµСЂРµСЃС‡РёС‚С‹РІР°РµС‚ РѕР±Р»Р°СЃС‚СЊ РґР»СЏ РѕС‚СЂРёСЃРѕРІРєРё С„СЂР°РєС‚Р°Р»Р°
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			if (remaining!=0)
