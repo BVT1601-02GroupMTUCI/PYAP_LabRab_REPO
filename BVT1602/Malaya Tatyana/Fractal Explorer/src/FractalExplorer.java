@@ -16,11 +16,11 @@ public class FractalExplorer {
 		fractalGen.getInitialRange(range);
 	}
 	
-	public void createAndShowGUI ()  // создание визуала и вывод его на экран
+	public void createAndShowGUI ()  // СЃРѕР·РґР°РЅРёРµ РІРёР·СѓР°Р»Р° Рё РІС‹РІРѕРґ РµРіРѕ РЅР° СЌРєСЂР°РЅ
 	{
 		JFrame frame = new JFrame("Fractal Explorer");
 		image = new JImageDisplay(displaySize,displaySize);
-		JButton button = new JButton("Сброс");
+		JButton button = new JButton("РЎР±СЂРѕСЃ");
 		button.addActionListener(new ButtonClick());
 		image.addMouseListener(new Zoom());
 		frame.setLayout(new java.awt.BorderLayout());
@@ -59,7 +59,7 @@ public class FractalExplorer {
 			drawFractal();
 		}
 	}
-	private class Zoom extends MouseAdapter{     //класс считывает действие мыши(клик) и пересчитывает область для отрисовки фрактала
+	private class Zoom extends MouseAdapter{     //РєР»Р°СЃСЃ СЃС‡РёС‚С‹РІР°РµС‚ РґРµР№СЃС‚РІРёРµ РјС‹С€Рё(РєР»РёРє) Рё РїРµСЂРµСЃС‡РёС‚С‹РІР°РµС‚ РѕР±Р»Р°СЃС‚СЊ РґР»СЏ РѕС‚СЂРёСЃРѕРІРєРё С„СЂР°РєС‚Р°Р»Р°
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			double xCoord = FractalGenerator.getCoord (range.x, range.x + range.width, displaySize, e.getX());
