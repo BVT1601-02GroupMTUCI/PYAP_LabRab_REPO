@@ -2,7 +2,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class JImageDisplay extends javax.swing.JComponent {
-	public BufferedImage image;
+	private BufferedImage image;
     public JImageDisplay(int width, int height)
     {
     	image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -10,18 +10,18 @@ public class JImageDisplay extends javax.swing.JComponent {
     }
     
     @Override
-    protected void paintComponent(Graphics g) //вывод на экран изображения 
+    protected void paintComponent(Graphics g) //РІС‹РІРѕРґ РЅР° СЌРєСЂР°РЅ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ 
     { 
 	    super.paintComponent(g); //
 	    g.drawImage(image, 0, 0, image.getWidth(), image.getHeight(), null); 
     } 
-    public void clearImage() //очищает изображение(перекрашивает все пиксели в черный)
+    public void clearImage() //РѕС‡РёС‰Р°РµС‚ РёР·РѕР±СЂР°Р¶РµРЅРёРµ(РїРµСЂРµРєСЂР°С€РёРІР°РµС‚ РІСЃРµ РїРёРєСЃРµР»Рё РІ С‡РµСЂРЅС‹Р№)
     { 
     	for (int i=0;i<image.getWidth(); i++)
     		for (int j=0; j<image.getHeight(); j++) 
     			image.setRGB(i, j, 0);
     } 
-    public void drawPixel(int x,int y, int rgbColor) //функция задает цвет определенному пикселю 
+    public void drawPixel(int x,int y, int rgbColor) //С„СѓРЅРєС†РёСЏ Р·Р°РґР°РµС‚ С†РІРµС‚ РѕРїСЂРµРґРµР»РµРЅРЅРѕРјСѓ РїРёРєСЃРµР»СЋ 
     { 
     	image.setRGB(x, y, rgbColor);
     }
