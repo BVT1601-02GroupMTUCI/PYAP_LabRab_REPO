@@ -12,7 +12,7 @@ public class Tricorn extends FractalGenerator {
 		range.height = 4;
 	}
 	@Override
-	public int numIterations(double x, double y)// просчитывает кол-во итераций и просчитывание фрактала
+	public int numIterations(double x, double y)// РїСЂРѕСЃС‡РёС‚С‹РІР°РµС‚ РєРѕР»-РІРѕ РёС‚РµСЂР°С†РёР№ Рё РїСЂРѕСЃС‡РёС‚С‹РІР°РЅРёРµ С„СЂР°РєС‚Р°Р»Р°
 	{
 		int countIteration = 0;
 		double Re = x;
