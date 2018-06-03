@@ -58,7 +58,7 @@ public class Crawler {
 
 	public static void main(String[] args) {
 		if (args.length < 2) {
-			System.out.println("»ÒÔÓÎ¸ÁÓ‚‡Ú¸: java Crawler <URL> <Ï‡ÍÒ „ÎÛ·ËÌ‡>");
+			System.out.println("–ò—Å–ø–æ–ª—å–∑–æ–≤–∞—Ç—å: java Crawler <URL> <–º–∞–∫—Å –≥–ª—É–±–∏–Ω–∞>");
 			return;
 		}
 		LinkedList<URLDepthPair> pendingURLs = new LinkedList<>();
