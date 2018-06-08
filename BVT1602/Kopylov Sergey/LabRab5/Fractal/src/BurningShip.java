@@ -1,9 +1,10 @@
+
 import java.awt.geom.Rectangle2D;
 
 /**
  * класс наследник от FractalGenerator.  Нужен чтобы посчитать фрактал Мальдеброта
  */
-public class Tricorn extends FractalGenerator
+public class BurningShip extends FractalGenerator
 {
 
     public static final int MAX_ITERATIONS = 2000;
@@ -12,12 +13,12 @@ public class Tricorn extends FractalGenerator
      * Метод позволяет фрактальному генератору определять,
      * какая часть комплексной плоскости является самой "интересной" для определенного фрактала.
      * Реализация этого метода должна установить начальный диапазон в (-2 - 1.5i) - (1 + 1.5i).
-     * Т.е. x и значения y будут -2 и -2 соответственно, и ширина и высота будут равняться 4.
+     * Т.е. x и значения y будут -2 и -2.5 соответственно, и ширина и высота будут равняться 4.
      */
     public void getInitialRange(Rectangle2D.Double range)
     {
         range.x = -2;
-        range.y = -2;
+        range.y = -2.5;
         range.width = 4;
         range.height = 4;
     }
@@ -37,7 +38,7 @@ public class Tricorn extends FractalGenerator
 
         for(double Rez=0,Imz = 0;iterator < MAX_ITERATIONS && Rez * Rez + Imz * Imz < 4.0D; ++iterator) {
             double RezUpdated = Rez * Rez - Imz * Imz + x;
-            double ImzUpdated = -2 * Rez * Imz + y;
+            double ImzUpdated = 2 * Math.abs(Rez)* Math.abs(Imz) + y;
             Rez = RezUpdated;
             Imz = ImzUpdated;
         }
@@ -48,10 +49,10 @@ public class Tricorn extends FractalGenerator
 
     }
     /**
-  * Возвращаетназвание фрактала: «Трикорн».
-        */
+     * An implementation of toString() on this fracal implementation.  Returns
+     * the name of the fractal: "Burning Ship".
+     */
     public String toString() {
-        return "Tricorn";
+        return "Burning Ship";
     }
-
 }

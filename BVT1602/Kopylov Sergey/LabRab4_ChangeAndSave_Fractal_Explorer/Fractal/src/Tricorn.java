@@ -48,7 +48,8 @@ public class Tricorn extends FractalGenerator
 
     }
     /**
-  * Возвращаетназвание фрактала: «Трикорн».
+            * An implementation of toString() on this fracal implementation.  Returns
+     * the name of the fractal: "Tricorn".
         */
     public String toString() {
         return "Tricorn";
