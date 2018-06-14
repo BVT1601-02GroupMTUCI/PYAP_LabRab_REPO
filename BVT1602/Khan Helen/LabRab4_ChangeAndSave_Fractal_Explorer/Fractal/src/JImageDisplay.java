@@ -5,17 +5,17 @@ import java.awt.*;
 class JImageDisplay extends JComponent
 {
     /**
-     * создаем переменную Buffered Image.
-     * для созранения в ней нашего изображения.
+     * создаем переменную типа Buffered Image.
+     * для созранения изображения.
      */ 
-    private BufferedImage displayImage;
+    private BufferedImage ShowImage;
     
     /**
      Конструктор JImageDisplay должен получить целочисленную ширину и высоту и инициализировать этими значениями BufferedImage,
-     чтобы быть новым изображением указанной ширины и высоты, и типом изображения TYPE_INT_RGB.
+     чтобы быть новым изображением указанной ширины и высоты.
       */
     public JImageDisplay(int width, int height) {
-        displayImage = new BufferedImage(width, height,
+        ShowImage = new BufferedImage(width, height,
         BufferedImage.TYPE_INT_RGB);
         
         /** 
@@ -27,26 +27,32 @@ class JImageDisplay extends JComponent
         
     }
     public BufferedImage getImage() {
-        return displayImage;
-    }
+        return ShowImage;
+    }   //метод, возвращающий изображение
     /**
      * переопределяем paintComponent(g) родительского класса чтобы он нарисовал нам изображение в окне.
      */
     @Override
     public void paintComponent(Graphics g)
     {
-        super.paintComponent(g);
-        g.drawImage(displayImage, 0, 0, displayImage.getWidth(),
-        displayImage.getHeight(), null);
+        super.paintComponent(g); //вызываем родительский метод
+        /*передаем методу Drawimage параметры
+         *ShowImage-изображение для отрисовки
+         * x,y - позиция начала отрисовки (верхний левый угол области)
+         * размеры изображения по горизонтали/вертикали
+         * слушателя(observer) не устанавливаем*/
+        g.drawImage(ShowImage, 0, 0, ShowImage.getWidth(),
+        ShowImage.getHeight(), null);
     }
     /**
      * делает все пиксели изображения черными.
      */
     public void clearImage()
     {
-        for (int i = 0; i < displayImage.getWidth(); i++) {
-            for (int j = 0; j < displayImage.getHeight(); j++) {
-                displayImage.setRGB(i, j, 0);
+        //цикл по ширине/высоте изображения(по всем пикселям)
+        for (int i = 0; i < ShowImage.getWidth(); i++) {
+            for (int j = 0; j < ShowImage.getHeight(); j++) {
+                ShowImage.setRGB(i, j, 0); //делаем текущий пиксель черным
             }
         }
 
@@ -56,6 +62,6 @@ class JImageDisplay extends JComponent
      */
     public void drawPixel(int x, int y, int rgbColor)
     {
-        displayImage.setRGB(x, y, rgbColor);
+        ShowImage.setRGB(x, y, rgbColor);
     }
 }

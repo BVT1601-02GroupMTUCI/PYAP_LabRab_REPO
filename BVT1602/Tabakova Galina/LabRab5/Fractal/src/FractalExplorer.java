@@ -49,7 +49,7 @@ public class FractalExplorer
         display.setLayout(new BorderLayout());
         JFrame myframe = new JFrame("Работа № 3: Fractal Explorer");
 
-        myframe.add(display, BorderLayout.CENTER);//располагаем областьотображения по центру окна
+        myframe.add(display, BorderLayout.CENTER);//располагаем область отображения по центру окна
         
         /** создаем кнопку */
         this.resetButton = new JButton("Очистить");
@@ -124,7 +124,7 @@ public class FractalExplorer
     {
         this.enableUI(false);
         this.rowsRemaining = this.displaySize;
-
+            //для подсчета каждого пикселя создаем новый поток
         for(int var1 = 0; var1 < this.displaySize; ++var1) {
             FractalExplorer.FractalWorker var2 = new FractalExplorer.FractalWorker(var1);
             var2.execute();

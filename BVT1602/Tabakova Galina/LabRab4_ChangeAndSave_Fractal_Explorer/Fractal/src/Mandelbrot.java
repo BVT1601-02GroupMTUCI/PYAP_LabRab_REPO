@@ -44,7 +44,8 @@ public class Mandelbrot extends FractalGenerator
 /**
  *Если число максимальных итераций достигнуто, верните -1, чтобы указать, что точка не вышла за пределы границы.
  */
-        return iterator == MAX_ITERATIONS ? -1 : iterator;
+        if(iterator == MAX_ITERATIONS) return -1;
+        else return iterator;
 
     }
 

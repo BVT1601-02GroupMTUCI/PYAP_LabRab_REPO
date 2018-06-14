@@ -44,11 +44,11 @@ public class FractalExplorer
     public void createAndShowGUI()
     {
         display.setLayout(new BorderLayout());
-        JFrame myframe = new JFrame("Работа № 3: Fractal Explorer");
+        JFrame myframe = new JFrame("Работа № 3: Fractal Explorer"); //создаем окно с рамкой и строкой заголовка
 
-        myframe.add(display, BorderLayout.CENTER);//располагаем областьотображения по центру окна
+        myframe.add(display, BorderLayout.CENTER);//располагаем область отображения по центру окна
         
-        /** создаем кнопку */
+        /************************************ создаем кнопки ********************************/
         JButton resetButton = new JButton("Очистить");
         
         /** добавляем обработчик события на кнопку */
@@ -61,6 +61,20 @@ public class FractalExplorer
         /** вешаем обраотчик события на клик в области отображения */
         MouseHandler click = new MouseHandler();
         display.addMouseListener(click);
+
+        /**
+         * Создаем Кнопку Сохранить.
+         */
+        JButton saveButton = new JButton("Сохранить");
+        JPanel myBottomPanel = new JPanel();
+        myBottomPanel.add(saveButton);
+        myBottomPanel.add(resetButton);
+        myframe.add(myBottomPanel, BorderLayout.SOUTH);
+
+        /** Вешаем обработчик на кнопку сохранения **/
+        ButtonHandler saveHandler = new ButtonHandler();
+        saveButton.addActionListener(saveHandler);
+        
         /** Создаем ComboBox. **/
         JComboBox myComboBox = new JComboBox();
 
@@ -86,24 +100,11 @@ public class FractalExplorer
         myPanel.add(myComboBox);
         myframe.add(myPanel, BorderLayout.NORTH);
 
-        /**
-         * Создаем Кнопку для сохранения рядом с кнопкой Очистить.
-         */
-        JButton saveButton = new JButton("Сохранить");
-        JPanel myBottomPanel = new JPanel();
-        myBottomPanel.add(saveButton);
-        myBottomPanel.add(resetButton);
-        myframe.add(myBottomPanel, BorderLayout.SOUTH);
-
-        /** Вешаем обработчик на кнопку сохранения **/
-        ButtonHandler saveHandler = new ButtonHandler();
-        saveButton.addActionListener(saveHandler);
-
         /** устанавливаем по умолчаниюстандартную процедуру закрытия Jframe */
         myframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         myframe.pack();//метод pack() устанавливает такой минимальный размер контейнера, который достаточен для отображения всех компонентов.
-        myframe.setVisible(true);
+        myframe.setVisible(true); //делаем окно видимым
         myframe.setResizable(false);//убираем возможность расширения окна
     }
     
@@ -128,24 +129,26 @@ public class FractalExplorer
                 range.y + range.height, displaySize, y);
                 
                 /**
-                 * считаем количество итераций для отрисовки части фрактала в данных координатах
+                 * считаем количество итераций для отрисовки части фрактала в текущих значениях x и y
                  */
                 int iteration = fractal.numIterations(xCoord, yCoord);
                 
-                /** Если число итераций равно -1, установите пиксель в черный. */
-                if (iteration == -1){
-                    display.drawPixel(x, y, 0);
+                
+                if (iteration != -1){
+                    /**
+                     * Если кол-во итераций не отрицательное, выберите значение оттенка, основанное на количестве итераций.
+                     */
+                    float PixCol = 0.7f + (float) iteration / 200f;
+                    int rgbColor = Color.HSBtoRGB(PixCol, 1f, 1f);
+
+                    /** Обновить дисплей цветом для каждого пикселя. */
+                    display.drawPixel(x, y, rgbColor);
+                    
                 }
                 
                 else {
-                    /**
-                     * В противном случае выберите значение оттенка, основанное на количестве итераций.
-                     */
-                    float hue = 0.7f + (float) iteration / 200f;
-                    int rgbColor = Color.HSBtoRGB(hue, 1f, 1f);
-                
-                    /** Обновить дисплей цветом для каждого пикселя. */
-                    display.drawPixel(x, y, rgbColor);
+                    /** Иначе, если число итераций равно -1, установите пиксель в черный. */
+                    display.drawPixel(x, y, 0);
                 }
                 
             }
@@ -199,7 +202,7 @@ public class FractalExplorer
                 myFileChooser.setAcceptAllFileFilterUsed(false);
 
                 /**
-                 * получаем путь до директории, куда юзверь хочет сохранять.
+                 * получаем путь до директории, куда будем сохранять.
                  */
                 int userSelection = myFileChooser.showSaveDialog(display);
 

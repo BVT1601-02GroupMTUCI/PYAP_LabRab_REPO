@@ -204,7 +204,7 @@ public class FractalExplorer
                 int userSelection = myFileChooser.showSaveDialog(display);
 
                 /**
-                 * Если результатом операции выбора файла является APPROVE_OPTION, продолжайте операцию сохранения файла.
+                 * Если выбор файла прошел успешно, продолжайте операцию сохранения файла.
                  */
                 if (userSelection == JFileChooser.APPROVE_OPTION) {
 
